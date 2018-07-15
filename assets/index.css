@@ -1,0 +1,153 @@
+#main {
+  font-size: 36px;
+  font-weight: bold;
+  font-family: 'Roboto Mono', monospace;
+  width: 430px;
+  height: 320px;
+}
+#main div {
+  width: 28.6094px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#main div > div.horizontal {
+  height: 48px;
+}
+
+#main div > div.timeout {
+  color: red;
+}
+
+#main div > div.vertical {
+  max-height: 400px;
+  word-break: break-all;
+  font-size: 16px;
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  clear: both;
+  float: right;
+  margin-top: -3px;
+}
+
+#refresh {
+  display: inline-block;
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 11px;
+  font-weight: bolder;
+}
+
+#linktest {
+  display: block;
+}
+
+#main {
+  display: inline-block;
+}
+
+#container {
+  margin: 30px auto 30px auto;
+  width: 430px;
+}
+
+#container-detail {
+  margin: 0 auto;
+  font-size: 16px;
+  width: 329px;
+}
+
+#container-detail > div {
+  display: inline-block;
+  width: 329px;
+
+}
+
+#container-detail p {
+  font-size: 16px;
+  margin: 3px 0px;
+  font-family: 'Roboto Mono', monospace;
+  text-align: center;
+}
+
+#container-detail #hr {
+  margin: 25px auto;
+  width: 50px;
+}
+
+#container-detail #borderline {
+  border-bottom: 1px solid gray;
+}
+
+#email {
+  margin: 70px auto 0 auto;
+  font-weight: bolder;
+  font-family: 'Roboto Mono', monospace;
+  width: 183px;
+}
+
+a,
+a:link,
+a:active,
+a:focus {
+  color: #467192;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#mo {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  width: 229px;
+}
+
+#mo p {
+  margin: 0;
+}
+
+#links {
+  width: 66px;
+  margin: 20px auto 65px auto;
+  display: none;
+}
+
+#links.active {
+  display: block;
+}
+
+#links a {
+  display: inline-block;
+}
+
+#links a:first-child {
+  margin-right: 10px;
+}
+
+#links img {
+  width: 26px;
+}
+
+img.linkedin {
+  opacity: 0.2;
+}
+
+img.github {
+  opacity: 0.27;
+}
+
+#links a:hover img.linkedin {
+  opacity: 0.4;
+}
+
+#links a:hover img.github {
+  opacity: 0.47;
+}

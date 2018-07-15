@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+cargo build && \
+  wasm-bindgen target/wasm32-unknown-unknown/debug/kunovski.wasm --out-dir . && \
+  npm run serve

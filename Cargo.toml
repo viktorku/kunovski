@@ -1,0 +1,11 @@
+[package]
+name = "kunovski"
+version = "0.1.0"
+authors = ["Viktor Kunovski <viktor@kunovski.com>"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2.13"
+lazy_static = "1.0"

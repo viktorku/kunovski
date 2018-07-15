@@ -1,0 +1,15 @@
+.DS_Store
+
+/target
+**/*.rs.bk
+Cargo.lock
+
+node_modules
+/dist
+
+*.wasm
+*.ts
+kunovski.js
+
+/assets/*.txt
+

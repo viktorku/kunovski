@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+cargo build --release && \
+  wasm-bindgen target/wasm32-unknown-unknown/release/kunovski.wasm --out-dir . && \
+  npm run build
