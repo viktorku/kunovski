@@ -354,13 +354,13 @@ fn attach_listeners(
     let len = word.len();
     let span_ome = span.clone();
     let ome = Closure::new(move || {
-        let spen_ome_ = span_ome.clone();
+        let span_ome_ = span_ome.clone();
         let interval = Closure::new(move || {
             if let Ok(random_word) = get_hover_word(len) {
                 if last_in_line {
-                    spen_ome_.set_inner_html(&random_word);
+                    span_ome_.set_inner_html(&random_word);
                 } else {
-                    spen_ome_.set_inner_html(&(random_word.to_string() + "&nbsp;"));
+                    span_ome_.set_inner_html(&(random_word.to_string() + "&nbsp;"));
                 }
             }
         });

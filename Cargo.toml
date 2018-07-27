@@ -7,5 +7,5 @@ authors = ["Viktor Kunovski <viktor@kunovski.com>"]
 crate-type = ["cdylib"]
 
 [dependencies]
-wasm-bindgen = "0.2.13"
+wasm-bindgen = "0.2"
 lazy_static = "1.0"

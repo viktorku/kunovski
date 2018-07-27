@@ -18,7 +18,7 @@ wa.then(wa => {
   };
 
   // Initialize the corpus (takes up to a second).
-  // wa.init();
+  wa.init();
 
   const defer = timeout => {
     setTimeout(() => {
