@@ -10,6 +10,8 @@ node_modules
 *.wasm
 *.ts
 kunovski.js
+*_bg*
+/snippets
 
 /assets/*.txt
 

@@ -6,7 +6,7 @@
   height: 320px;
 }
 #main div {
-  width: 28.6094px;
+  width: 28px;
   display: inline-block;
   vertical-align: top;
 }
@@ -30,16 +30,24 @@
   margin-top: -3px;
 }
 
-#refresh {
-  display: inline-block;
-  cursor: pointer;
+#ctrl {
   position: fixed;
   bottom: 20px;
   right: 20px;
   font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  text-align: right;
+  /* width: 229px; */
+}
+
+/* #refresh {
+  display: inline-block;
+  cursor: pointer;
+  position: fixed;
+  font-family: 'Roboto Mono', monospace;
   font-size: 11px;
   font-weight: bolder;
-}
+} */
 
 #linktest {
   display: block;
@@ -57,12 +65,12 @@
 #container-detail {
   margin: 0 auto;
   font-size: 16px;
-  width: 329px;
+  width: 400px;
 }
 
 #container-detail > div {
   display: inline-block;
-  width: 329px;
+  width: 400px;
 
 }
 
@@ -110,7 +118,7 @@ a:hover {
   width: 229px;
 }
 
-#mo p {
+#mo p, #ctrl p {
   margin: 0;
 }
 

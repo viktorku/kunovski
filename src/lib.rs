@@ -1,5 +1,3 @@
-#![feature(use_extern_macros)]
-
 #[macro_use]
 extern crate lazy_static;
 extern crate wasm_bindgen;
@@ -47,23 +45,23 @@ extern {
     fn set_id(this: &Element, val: &str);
 
     #[wasm_bindgen(method, js_name = addEventListener)]
-    fn add_event_listener(this: &Element, event: &str, handler: &Closure<FnMut()>);
+    fn add_event_listener(this: &Element, event: &str, handler: &Closure<dyn FnMut()>);
     #[wasm_bindgen(method, js_name = setAttribute)]
     fn set_attribute(this: &Element, name: &str, value: &str);
 
     #[wasm_bindgen(js_name = setInterval)]
-    fn set_interval(cb: &Closure<FnMut()>, delay: u32) -> f64;
+    fn set_interval(cb: &Closure<dyn FnMut()>, delay: u32) -> f64;
     #[wasm_bindgen(js_name = clearInterval)]
     fn clear_interval(interval: f64);
 
     #[wasm_bindgen(js_name = setTimeout)]
-    fn set_timeout(cb: &Closure<FnMut()>, delay: u32) -> f64;
+    fn set_timeout(cb: &Closure<dyn FnMut()>, delay: u32) -> f64;
 
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &str);
 }
 
-#[wasm_bindgen(module = "./index")]
+#[wasm_bindgen(module = "/snippets.js")]
 extern {
     fn update(status: bool, pending: u32) -> bool;
     fn next_u32(min: u32, max: u32) -> u32;
@@ -178,7 +176,7 @@ pub fn find(letter: char, idx: usize, node: &Element, delay: u32) {
 
     let ls = letter.to_string();
     let start = performance.now();
-    let interval = Closure::new(move || {
+    let interval = Closure::wrap(Box::new(move || {
         if let Ok(result) = process_word(get_random_word()) {
             if performance.now() - start >= 5000. {
                 child.set_inner_html(&letter.to_string()[..]);
@@ -194,7 +192,7 @@ pub fn find(letter: char, idx: usize, node: &Element, delay: u32) {
                 stop_namechar_interval(&idx);
             }
         }
-    });
+    }) as Box<dyn FnMut()>);
 
     let mut intervals = INTERVALS.lock().unwrap();
     (*intervals)[idx] = set_interval(&interval, delay);
@@ -263,7 +261,7 @@ fn describe(line_idx: usize, word_idx: usize, new_line: bool) {
     let is_last_line = line_idx == DESCRIPTION.len() - 1;
     let is_last_word = word_idx == DESCRIPTION[line_idx].len() - 1;
 
-    let closure = Closure::new(move || {
+    let closure = Closure::wrap(Box::new(move || {
         let word = DESCRIPTION[line_idx][word_idx];
 
         let next = move || {
@@ -296,7 +294,7 @@ fn describe(line_idx: usize, word_idx: usize, new_line: bool) {
             roll(&p, word, is_last_word, slot, next);
         }
 
-    });
+    }) as Box<dyn FnMut()>);
 
     set_timeout(&closure, 0);
     closure.forget();
@@ -315,7 +313,7 @@ fn roll(
 
     let mut i = 0;
     let mut went_next = false;
-    let interval = Closure::new(move || {
+    let interval = Closure::wrap(Box::new(move || {
         loop {
             let random_word = get_random_word();
             if random_word.len() == word.len() {
@@ -337,7 +335,7 @@ fn roll(
             }
             stop_interval(&slot, &INTERVALS_WORD);
         }
-    });
+    }) as Box<dyn FnMut()>);
 
     let mut intervals = INTERVALS_WORD.lock().unwrap();
     (*intervals)[slot] = set_interval(&interval, 0);
@@ -353,9 +351,9 @@ fn attach_listeners(
 
     let len = word.len();
     let span_ome = span.clone();
-    let ome = Closure::new(move || {
+    let ome = Closure::wrap(Box::new(move || {
         let span_ome_ = span_ome.clone();
-        let interval = Closure::new(move || {
+        let interval = Closure::wrap(Box::new(move || {
             if let Ok(random_word) = get_hover_word(len) {
                 if last_in_line {
                     span_ome_.set_inner_html(&random_word);
@@ -363,24 +361,24 @@ fn attach_listeners(
                     span_ome_.set_inner_html(&(random_word.to_string() + "&nbsp;"));
                 }
             }
-        });
+        }) as Box<dyn FnMut()>);
         let mut intervals = INTERVALS_HOVER.lock().unwrap();
         (*intervals)[slot] = set_interval(&interval, 0);
         interval.forget();
-    });
+    }) as Box<dyn FnMut()>);
     span.add_event_listener("mouseenter", &ome);
     ome.forget();
 
 
     let span_oml = span.clone();
-    let oml = Closure::new(move || {
+    let oml = Closure::wrap(Box::new(move || {
         stop_interval(&slot, &INTERVALS_HOVER);
         if last_in_line {
             span_oml.set_inner_html(&word);
         } else {
             span_oml.set_inner_html(&(word.to_string() + "&nbsp;"));
         }
-    });
+    }) as Box<dyn FnMut()>);
 
     span.add_event_listener("mouseleave", &oml);
     oml.forget();
